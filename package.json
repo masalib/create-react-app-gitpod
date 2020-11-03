@@ -10,7 +10,8 @@
     "react": "^16.12.0",
     "react-apollo": "^3.1.5",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "@bit/mhnpd.react-loader-spinner.tail-spin": "file:./components/tail-spin"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -37,5 +38,10 @@
   "devDependencies": {
     "jest-puppeteer": "^4.3.0",
     "puppeteer": "^2.0.0"
+  },
+  "bit": {
+    "env": {},
+    "componentsDefaultDirectory": "components/{name}",
+    "packageManager": "npm"
   }
 }
