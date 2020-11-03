@@ -2,7 +2,7 @@ import React from 'react';
 import {ApolloProvider} from '@apollo/client';
 import client from './client'
 import {Issues} from './Issues';
-
+import SearchRepositories from './SearchRepositories';
 
 function App() {
   return (
@@ -12,6 +12,9 @@ function App() {
     </div>
     <ApolloProvider client={client}>
       <Issues />
+
+      <SearchRepositories />
+
     </ApolloProvider>
     </>    
   );
