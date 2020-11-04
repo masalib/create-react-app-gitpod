@@ -5,6 +5,7 @@ import {Issues} from './Issues';
 import SearchRepositories from './SearchRepositories';
 
 function App() {
+  let query ='graphql'
   return (
       <>
     <div className="App">
@@ -13,7 +14,7 @@ function App() {
     <ApolloProvider client={client}>
       <Issues />
 
-      <SearchRepositories />
+      <SearchRepositories query={query}/>
 
     </ApolloProvider>
     </>    
