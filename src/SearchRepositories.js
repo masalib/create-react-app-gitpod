@@ -1,5 +1,6 @@
 import React from 'react'
 import {gql, useQuery} from '@apollo/client';
+import { Buffer } from 'buffer';
 
 // 発行する GraphQL クエリ
 const GET_REPOSITORIES = gql`
@@ -55,7 +56,8 @@ const SearchRepositories = props => {
   const {hasNextPage,hasPreviousPage,endCursor,startCursor} = data.search.pageInfo
   console.log(hasNextPage)
   console.log(hasPreviousPage)
-  console.log(startCursor)
+  console.log(Buffer.from(startCursor, 'base64').toString())
+  console.log(Buffer.from(endCursor, 'base64').toString())
 
   return (
     <>
