@@ -42,8 +42,9 @@ const SearchRepositories = props => {
                   after:null,
                   before:null
                 },
-            });
-
+            },
+            {fetchPolicy: "cache-and-network",}
+            );
   // クエリ実行中の表示
   if (loading) return <p>Loading ...</p>;
 
@@ -73,67 +74,84 @@ const SearchRepositories = props => {
                 )
                 })
         }
-
-        {hasNextPage && (
+        {hasNextPage && 
+          (
             <button
-                    onClick={() =>
-                       fetchMore({
-                            variables: {
-                                first: 10 ,
-                                last:null,
-                                query:props.query,
-                                after: endCursor,
+                    onClick={async() =>
+                      {
+                        console.log("data get start");
+                        await fetchMore({
+                          variables: {
+                            first: null ,
+                            last:10,
+                            query:props.query,
+                            after: endCursor,
                             before:null
                           },
-                        updateQuery: (prevResult, { fetchMoreResult }) => {
-                            //more パターン
-                            /*
-                            fetchMoreResult.search.edges = [
-                                ...prevResult.search.edges,
-                                ...fetchMoreResult.search.edges
-                            ];
-                            return fetchMoreResult;
-                            */
-
-                            //単純な次のページのデータの場合      
-                            return fetchMoreResult;
-                            },
-                        })
-                    }
+                        }, 
+                        );
+                        console.log("data get end");
+                      }}
             >
-                NextPage
+              More 
             </button>
-
-        )}
-        {hasPreviousPage && (
+          )
+        }
+        {hasNextPage && 
+          (
             <button
-                    onClick={() =>
-                       fetchMore({
-                            variables: {
-                                first: null ,
-                                last:10,
-                                query:props.query,
-                                after: null,
-                            before:startCursor
-                          },
-                        updateQuery: (prevResult, { fetchMoreResult }) => {
-                            //単純な次のページのデータの場合      
-                            return fetchMoreResult;
-                            },
-                        })
-                    }
+              onClick={() =>
+                fetchMore({
+                    variables: {
+                        first: 10 ,
+                        last:null,
+                        query:props.query,
+                        after: endCursor,
+                    before:null
+                  },
+                updateQuery: (prevResult, { fetchMoreResult }) => {
+                    //単純な次のページのデータの場合      
+                    return fetchMoreResult;
+                    },
+                })
+              }
             >
-                PreviousPage
+              NextPage
             </button>
+          )
+        }
 
-
-        )}
-
-        
-
+        {hasPreviousPage && 
+          (
+            <button
+              onClick={() =>
+                fetchMore({
+                  variables: {
+                      first: null ,
+                      last:10,
+                      query:props.query,
+                      after: null,
+                      before:startCursor
+                    },
+                updateQuery: (prevResult, { fetchMoreResult }) => {
+                  //単純な次のページのデータの場合      
+                    return fetchMoreResult;
+                  },
+                })
+              }
+            >
+              PreviousPage
+            </button>
+          )
+        }
     </>
   )
 };
 
 export default SearchRepositories
+
+
+
+
+
 
