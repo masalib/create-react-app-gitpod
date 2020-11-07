@@ -1,6 +1,7 @@
 import React from 'react'
 import {gql, useQuery} from '@apollo/client';
 import { Buffer } from 'buffer';
+import {TailSpin} from '@bit/mhnpd.react-loader-spinner.tail-spin';
 
 // 発行する GraphQL クエリ
 const GET_REPOSITORIES = gql`
@@ -45,8 +46,12 @@ const SearchRepositories = props => {
             },
             {fetchPolicy: "cache-and-network",}
             );
-  // クエリ実行中の表示
-  if (loading) return <p>Loading ...</p>;
+// クエリ実行中の表示（Loading)
+if (loading) return 	<TailSpin 
+color={"black"} 
+height={150} 
+width={150} 
+/>;
 
   // エラー発生時（レスポンスがないとき）の表示
   if (error) return <p style={{color: 'red'}}>{error.message}</p>;
